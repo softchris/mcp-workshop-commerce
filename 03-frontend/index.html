@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Customer Support</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .faq-question {
+            background: #f8f9fa;
+            padding: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .faq-question.active::after {
+            content: '-';
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+        }
+
+        .faq-answer-content {
+            padding: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .custom-question-section {
+            margin-top: 50px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .custom-question-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .custom-question-section p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .button-container {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .response-area {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+
+        .response-area.show {
+            display: block;
+        }
+
+        .response-area h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .response-area p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .error {
+            color: #e74c3c;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .loading.show {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about our store</p>
+        </div>
+
+        <div class="content">
+            <h2 class="section-title">Common Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    What are your shipping options?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        We offer several shipping options including Standard (5-7 business days), Express (2-3 business days), and Next Day delivery. Shipping costs vary based on your location and the weight of your order. Free standard shipping is available on orders over $50.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    What is your return policy?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        We accept returns within 30 days of purchase for a full refund. Items must be unused and in their original packaging. To initiate a return, please contact our customer service team with your order number. Return shipping is free for defective items.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you ship internationally?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! We ship to over 100 countries worldwide. International shipping times vary by destination, typically ranging from 7-21 business days. Customs fees and import duties may apply and are the responsibility of the customer.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    How can I track my order?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Once your order ships, you'll receive a tracking number via email. You can use this number to track your package on our website or the carrier's tracking page. Allow 24 hours after shipment for tracking information to become available.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    What payment methods do you accept?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        We accept all major credit cards (Visa, MasterCard, American Express, Discover), PayPal, Apple Pay, Google Pay, and Shop Pay. All transactions are secure and encrypted for your safety.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    How do I contact customer support?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Our customer support team is available Monday-Friday, 9 AM - 6 PM EST. You can reach us via email at support@example.com, by phone at 1-800-123-4567, or through our live chat feature on the website.
+                    </div>
+                </div>
+            </div>
+
+            <div class="custom-question-section">
+                <h2>Can't find what you're looking for?</h2>
+                <p>Ask us a custom question and we'll get back to you with an answer!</p>
+                
+                <textarea id="questionInput" placeholder="Type your question here..."></textarea>
+                
+                <div class="button-container">
+                    <button id="submitBtn" onclick="submitQuestion()">Submit Question</button>
+                    <span class="loading" id="loading">Sending...</span>
+                </div>
+                
+                <div class="error" id="error"></div>
+                
+                <div class="response-area" id="responseArea">
+                    <h3>Answer:</h3>
+                    <p id="responseText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // FAQ accordion functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = question.classList.contains('active');
+                
+                // Close all other FAQs
+                document.querySelectorAll('.faq-question').forEach(q => {
+                    q.classList.remove('active');
+                    q.nextElementSibling.style.maxHeight = null;
+                });
+                
+                // Toggle current FAQ
+                if (!isActive) {
+                    question.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+
+        // Submit custom question
+        async function submitQuestion() {
+            const questionInput = document.getElementById('questionInput');
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const responseArea = document.getElementById('responseArea');
+            const responseText = document.getElementById('responseText');
+            
+            const question = questionInput.value.trim();
+            
+            if (!question) {
+                error.textContent = 'Please enter a question';
+                error.classList.add('show');
+                return;
+            }
+            
+            // Reset UI
+            error.classList.remove('show');
+            responseArea.classList.remove('show');
+            submitBtn.disabled = true;
+            loading.classList.add('show');
+            
+            try {
+                const response = await fetch('http://localhost:8001/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ question: question })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Display response
+                responseText.textContent = data.answer || data.response || JSON.stringify(data);
+                responseArea.classList.add('show');
+                
+            } catch (err) {
+                error.textContent = `Error: ${err.message}. Make sure the server is running on localhost:8000`;
+                error.classList.add('show');
+            } finally {
+                submitBtn.disabled = false;
+                loading.classList.remove('show');
+            }
+        }
+
+        // Allow Enter key to submit (with Shift+Enter for new line)
+        document.getElementById('questionInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                submitQuestion();
+            }
+        });
+    </script>
+</body>
+</html>

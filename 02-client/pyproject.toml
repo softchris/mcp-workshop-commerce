@@ -1,0 +1,10 @@
+[project]
+name = "02-client"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "github-copilot-sdk>=0.1.25",
+    "mcp[cli]>=1.26.0",
+]

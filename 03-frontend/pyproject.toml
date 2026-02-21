@@ -1,0 +1,12 @@
+[project]
+name = "03-frontend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.129.0",
+    "uvicorn>=0.41.0",
+    "mcp[cli]>=1.26.0",
+    "github-copilot-sdk>=0.1.25",
+]
