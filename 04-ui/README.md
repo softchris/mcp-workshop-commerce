@@ -9,21 +9,21 @@ So we have a server, and we have a client, the client even uses an LLM, what els
 ## Install
 
 ```bash
-uv "mcp[cli]" add mcp-ui-server
+uv sync
 ```
 
-## Scaffold a client
+OR if you use pip:
 
 ```bash
-npx create-vite@latest mcp-client --template react-ts
-cd mcp-client
+pip install fastapi mcp-ui-server "mcp[cli]" github-copilot-sdk
+```
+
+## Install client
+
+Install client dependencies, navigate to `mcp-client` folder.
+
+```bash
 npm install
-```
-
-Install client depencencies:
-
-```bash
-npm install @mcp-ui/client @modelcontextprotocol/sdk @modelcontextprotocol/ext-apps
 ```
 
 ## How to create a UI tool

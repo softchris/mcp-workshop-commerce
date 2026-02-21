@@ -17,3 +17,15 @@ graph TD
     D -->|Calls tools and returns responses to| C
     C -->|Sends responses back to| B
 ```
+
+## Install 
+
+```bash
+uv sync
+```
+
+OR if you use pip:
+
+```bash
+pip install fastapi uvicorn mcp[cli] github-copilot-sdk
+```

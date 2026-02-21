@@ -34,7 +34,7 @@ sequenceDiagram
 
 ```
 
-## Install dependencies
+## Install
 
 ```bash
 uv add "mcp[cli]" github-copilot-sdk

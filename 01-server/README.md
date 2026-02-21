@@ -18,6 +18,7 @@ graph TD
 
 ```sh
 uv init # OR python -m venv .venv && .venv\Scripts\activate
+```
 
 ## Install
 
