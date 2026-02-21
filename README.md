@@ -1,5 +1,7 @@
 # Hands-On AI Agents with Model Context Protocol (MCP)
 
+![](./ecommerce.png)
+
 ## Links
 
 - [Event](https://www.eventbrite.com/e/hands-on-ai-agents-with-model-context-protocol-mcp-tickets-1977484486331?msockid=38445845f01e6b0129dc49d4f1e56ada)
